@@ -1,0 +1,94 @@
+<div class="row">
+	<div class="col-md-12">
+	{{#each problems}}
+		<h4>Your current problem: {{this.problem}}</h4>
+	{{/each}}
+		<div id="best">	
+		<h4><b>Your best option(s): </b></h4>
+
+		</div>
+	<ul>
+	{{#each options}}
+		<div class="resultDiv" name={{this.option}}>
+		<h4><b><li>Option: {{this.option}}</li></b></h4>
+			<h4><b>Score: <span class="resultSpan"></span></b></h4>
+			<h4>Benefits:</h4>
+			{{#each this.Benefits}}
+			<li class="benefitWeight" value={{this.weight}}>{{this.benefit}} : {{this.weight}}</li>
+			{{/each}}
+			<h4>Detriments:</h4>
+			{{#each this.Detriments}}
+			<li class="detrimentWeight" value={{this.weight}}>{{this.detriment}} : {{this.weight}}</li>
+			{{/each}}
+		</div>
+	{{/each}}
+	</ul>
+	<br>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	var scoreArray = [];
+	var maxRating;
+	var bestOption = [];
+
+	$('.resultDiv').each(function() {
+		var total = 0;
+		
+		$(this).children('.benefitWeight').each(function(){
+			console.log($(this).val()); 
+			total += $(this).val();
+		})
+
+		$(this).children('.detrimentWeight').each(function() {
+			console.log($(this).val());
+			total -= $(this).val();
+		})
+		
+		console.log('Total value of this result is ' + total);
+		
+		$(this).find("span").html(total);
+		
+		scoreArray.push(total);
+		console.log(scoreArray);
+
+	});
+
+	function calMax() {
+
+		maxRating = Math.max(...scoreArray);
+
+		console.log('Highest rating is: ' + maxRating);
+
+		$('.resultDiv').each(function(){
+
+			console.log($(this).find("span").text())
+
+			var evalRating = $(this).find("span").text();
+			
+			if (maxRating == evalRating) {
+				bestOption.push($(this).attr("name"));
+			}
+		})
+
+		console.log(bestOption[0]);
+
+		if (bestOption.length > 1) {
+			for (var i = 0; i < bestOption.length; i++) {
+				$('#best').append('<h4>' + bestOption[i] + '</h4>');
+			}
+		}
+		else {
+			$('#best').append('<h4>' + bestOption[0] + '</h4>');
+		}
+
+		console.log(bestOption[0]);
+	}
+
+	calMax();
+
+
+})
+
+</script>

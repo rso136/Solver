@@ -1,0 +1,78 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Your Benefits</h4>
+			</div>
+			<div class="panel-body">
+			{{#each problems}}
+				<h4>Your current problem: {{this.problem}}</h4>
+			{{/each}}
+			</div>
+			<ol>	
+			{{#each options}}
+				<h4><li>{{this.option}}</li></h4>
+				<form>
+					<label>What benefit does this option provide?</label>
+					<br>
+					<input type="hidden" class="idInput" value={{this.id}}>
+					<input type="text" class="benefitInput" name="benefit">
+					<br>
+					<label>How helpful would it be?</label>
+					<select class="weightInput form-control">
+						<option value="1">Minor</option>
+						<option value="3">Moderate</option>
+						<option value="5">Major</option>
+					</select>
+					<br>
+					<button type="button" class="optionBtn btn btn-primary">Add</button>
+					<hr>
+				</form>	
+				<br>
+				<form>
+					<label>What benefit does this option provide?</label>
+					<br>
+					<input type="hidden" class="idInput" value={{this.id}}>
+					<input type="text" class="benefitInput" name="benefit">
+					<br>
+					<label>How helpful would it be?</label>
+					<select class="weightInput form-control">
+						<option value="1">Minor</option>
+						<option value="3">Moderate</option>
+						<option value="5">Major</option>
+					</select>
+					<br>
+					<button type="button" class="optionBtn btn btn-primary">Add</button>
+					<hr>
+				</form>	
+			{{/each}}
+			</ol>
+			<br>
+			{{#each problems}}
+			<form action="/detriments/detriment_input/{{this.id}}" method="GET">
+				<button type="submit" class="submitBtn btn btn-success">Go</button>
+			</form>	
+			{{/each}}
+		</div>
+	</div>	
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$(document).on('click', '.optionBtn', function() {
+		
+		var thisBenefit = $(this).siblings('.benefitInput').val();
+		var thisWeight = $(this).siblings('.weightInput').val();
+		var thisID = $(this).siblings('.idInput').val();
+
+		$.post('/benefits/create/' + thisBenefit + '/' + thisWeight + '/' + thisID, function(){
+			console.log('benefit submitted');
+		})
+
+		$(this).closest("form").replaceWith("<h4>Submitted</h4><hr>");
+
+	})
+})
+
+</script>

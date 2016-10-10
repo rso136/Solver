@@ -1,9 +1,9 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var Problem = sequelize.define("Problem", {
-    user_id: DataTypes.INTEGER,
-    problem: DataTypes.STRING
+  var User = sequelize.define("User", {
+    email: DataTypes.STRING,
+    password_hash: DataTypes.STRING
   }, {
     // don't add the timestamp attributes (updatedAt, createdAt)
       //timestamps: false,
@@ -23,21 +23,16 @@ module.exports = function(sequelize, DataTypes) {
     freezeTableName: true,
 
     // define the table's name
-    tableName: 'problems',
-
+    tableName: 'users',
+   
     classMethods: {
       associate: function(models) {
-        
-        Problem.hasMany(models.Option)
-
-        Problem.belongsTo(models.User, {
-          foreignKey: {
-            allowNull: false
-          }
-        });
+       
+        User.hasMany(models.Problem)
+      
       }
     }
   });
 
-  return Problem;
+  return User;
 };

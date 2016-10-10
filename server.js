@@ -12,7 +12,7 @@ var detriments_controller = require('./controllers/detriments_controller');
 var benefits_controller = require('./controllers/benefits_controller');
 var options_controller = require('./controllers/options_controller');
 var problems_controller = require('./controllers/problems_controller');
-//var users_controller = require('./controllers/users_controller');
+var users_controller = require('./controllers/users_controller');
 
 var app = express();
 
@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/users', users_controller);
+app.use('/users', users_controller);
 app.use('/problems', problems_controller);
 app.use('/options', options_controller);
 app.use('/benefits', benefits_controller);

@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Detriment = sequelize.define("Detriment", {
     detriment: DataTypes.STRING,
-    weight: DataTypes.STRING
+    weight: DataTypes.INTEGER
   }, {
     // don't add the timestamp attributes (updatedAt, createdAt)
       //timestamps: false,

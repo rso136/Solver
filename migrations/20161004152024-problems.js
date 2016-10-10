@@ -9,6 +9,7 @@ module.exports = {
           autoIncrement: true,
           primaryKey: true
         },
+        user_id: Sequelize.INTEGER,
         problem: Sequelize.STRING,
         created_at: Sequelize.DATE,
         updated_at: Sequelize.DATE

@@ -11,11 +11,11 @@ module.exports = {
         },
         score: {
           type: Sequelize.INTEGER,
-          defaultValue: '0' 
+          defaultValue: 0 
         },
         total: {
           type: Sequelize.INTEGER,
-          defaultValue: '0' 
+          defaultValue: 0 
         },
         grade: {
           type: Sequelize.STRING,

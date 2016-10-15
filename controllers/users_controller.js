@@ -64,7 +64,7 @@ router.post('/forget', function(req, res) {
       to: req.body.email,
     //Subject and text data  
       subject: 'Solver Password Reset',
-      html: 'Here is your password reset link: localhost:3000/users/reset/' + randnum 
+      html: 'Here is your password reset link: https://pure-sea-11701.herokuapp.com/' + randnum 
     }
 
     //Invokes the method to send emails given the above data with the helper library

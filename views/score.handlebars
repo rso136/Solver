@@ -62,6 +62,7 @@ $(document).ready(function(){
 	var maxRating;
 	var bestOption = [];
 	var ctx = $("#myChart");
+	var timer = 2;
 
 $('#progBar').progress();
 
@@ -190,7 +191,10 @@ var myChart = new Chart(ctx, {
 		$('#otherScoreBox').html('<h2>Your solver rating is currently: </h2><h1 id="finalGrade">' + userGrade + '</h1>');
 
 		$('#otherScoreBox')
-		.transition('flash');
+		.transition('vertical flip');
+
+		$('#otherScoreBox')
+		.transition('vertical flip');
 
 		$.post('/problems/evaluate/' + userGrade, function() {
 			console.log('grade sent');
@@ -198,7 +202,17 @@ var myChart = new Chart(ctx, {
 	}
 
 	calMax();
-	
+
+	setInterval(resultFlash, 2000);
+
+	function resultFlash() {
+
+		$('.resultDiv')
+		.transition('flash');
+
+	};
+
+
 	$('#bestBox')
   	.transition('tada');
 	

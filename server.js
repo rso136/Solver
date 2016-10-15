@@ -21,10 +21,12 @@ var app = express();
 
 var Sequelize = require('sequelize'),
   connection;
+
+console.log(process.env.JAWSDB_URL);
 if (process.env.JAWSDB_URL) {
   connection = new Sequelize(process.env.JAWSDB_URL);
 }else {
-  connection = new Sequelize('solver_db', 'root', 'orangegit12', {
+  connection = new Sequelize('solver_db', 'root', 'password', {
     host: 'localhost',
     dialect: 'mysql',
     port: '3306'

@@ -2,9 +2,18 @@
 
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
-    score: DataTypes.INTEGER,
-    total: DataTypes.INTEGER,
-    grade: DataTypes.STRING,
+    score: {
+      type: DataTypes.INTEGER,
+      defaultValue: '0'
+    },
+    total: {
+      type:DataTypes.INTEGER,
+      defaultValue: '0'
+    },
+    grade: {
+      type: DataTypes.STRING,
+      defaultValue: 'E'
+    },
     random: DataTypes.STRING,
     email: DataTypes.STRING,
     password_hash: DataTypes.STRING

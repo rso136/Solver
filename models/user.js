@@ -2,6 +2,10 @@
 
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
+    score: DataTypes.INTEGER,
+    total: DataTypes.INTEGER,
+    grade: DataTypes.STRING,
+    random: DataTypes.STRING,
     email: DataTypes.STRING,
     password_hash: DataTypes.STRING
   }, {

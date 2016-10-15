@@ -6,6 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var methodOverride = require('method-override');
+var debug = require('debug')('express-example');
+var app = require('./server');
+var models = require("./models");
 
 var application_controller = require('./controllers/application_controller');
 var detriments_controller = require('./controllers/detriments_controller');
@@ -20,7 +23,7 @@ var app = express();
 app.use(methodOverride('_method'))
 
 //allow sessions
-app.use(session({ secret: 'app', cookie: { maxAge: 60000 }}));
+app.use(session({ secret: 'app', cookie: { maxAge: 30*24*60*60*1000 }}));
 app.use(cookieParser());
 
 // view engine setup
@@ -65,5 +68,24 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var Sequelize = require('sequelize'),
+ 	connection;
+if (process.env.JAWSDB_URL) {
+	connection = new Sequelize(process.env.JAWSDB_URL);
+}else {
+	connection = new Sequelize('solver_db', 'root', 'password', {
+		host: 'localhost',
+		dialect: 'mysql',
+		port: '3306'
+	})
+}
+
+app.set('port', process.env.PORT || 3000);
+
+models.sequelize.sync().then(function () {
+  var server = app.listen(app.get('port'), function() {
+    debug('Express server listening on port ' + server.address().port);
+  });
+});
 
 module.exports = app;

@@ -1,77 +1,123 @@
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">Your Detriments</h4>
-			</div>
-			<div class="panel-body">
-			{{#each problems}}
-				<h4>Your current problem: {{this.problem}}</h4>
-			{{/each}}
-			</div>
-			<ol>	
-			{{#each options}}
-				<h4><li>{{this.option}}</li></h4>
-				<form>
-					<label>How is this option a detriment?</label>
-					<br>
-					<input type="hidden" class="idInput" value={{this.id}}>
-					<input type="text" class="detrimentInput" name="detriment">
-					<br>
-					<label>How detrimental would it be?</label>
-					<select class="weightInput form-control">
-						<option name="weight" value="1">Minor</option>
-						<option name="weight" value="3">Moderate</option>
-						<option name="weight" value="5">Major</option>
-					</select>
-					<br>
-					<button type="button" class="optionBtn btn btn-primary">Add</button>
-					<hr>
-				</form>	
-				<br>
-				<form>
-					<label>How is this option a detriment?</label>
-					<br>
-					<input type="hidden" class="idInput" value={{this.id}}>
-					<input type="text" class="detrimentInput" name="detriment">
-					<br>
-					<label>How detrimental would it be?</label>
-					<select class="weightInput form-control">
-						<option name="weight" value="1">Minor</option>
-						<option name="weight" value="3">Moderate</option>
-						<option name="weight" value="5">Major</option>
-					</select>
-					<br>
-					<button type="button" class="optionBtn btn btn-primary">Add</button>
-					<hr>
-				</form>
-			{{/each}}
-			</ol>
-			<br>
-			{{#each problems}}
-			<form action="/problems/ratings/{{this.id}}" method="GET">
-				<button type="submit" class="submitBtn btn btn-success">Go</button>
-			</form>	
-			{{/each}}
-			</div>
-		</div>
-	</div>	
+<div class="ui container">
+ <div class="inputGrid ui one column stackable padded centered grid">
+    <div class="inputBox column">
+        <h2>What are the detriments for each option?</h2>
+        {{#each problems}}
+        <h3>Your current problem: {{this.problem}}</h3>
+        {{/each}}
+      {{#each options}}  
+      <h2><u>{{this.option}}:</u></h2>
+      <div class="masterField">
+        <button type="button" class="submitBtn ui small red button">More <i class="plus icon"></i></button> 
+        <br>
+        <br>
+        <form class="replicate ui form">
+          <div class="field">
+              <div style="width:400px" class="lgInput ui big icon input">
+                <input type="hidden" class="idInput" value={{this.id}}>
+                <input type="text" class="detrimentInput" name="detriment" placeholder="Input Detriment" size="50" required>
+                <i class="optionBtn inverted circular plus link icon"></i>
+              </div>
+          </div>
+
+              <h4>Rate this detriment:</h4>
+              <div class="ui quality huge star rating" data-rating="3" data-max-rating="5"></div>
+        </form>
+        <br>
+        
+      </div>    
+      {{/each}}
+          <br>
+          <br>
+          {{#each problems}}
+           <form class="ui form" action="/problems/ratings/{{this.id}}" method="GET"> 
+            <button class="ui huge blue button" id="nextBtn">Go<i class="long arrow right icon"></i></button>
+          </form>  
+          {{/each}}
+
+    </div>
 </div>
+<div class="ui two column stackable padded centered grid">
+  <div class="column">  
+      <h3>Step 4: Detriments</h3>    
+      <div class="ui violet big progress" data-percent="90" id="progBar">
+        <div class="bar"></div>
+        <div class="label">Progress</div>
+      </div>
+    </div>
+</div>
+</div>
+
+  
+
 <script type="text/javascript">
+
 $(document).ready(function(){
 
-	$(document).on('click', '.optionBtn', function() {
-		
-		var thisDetriment = $(this).siblings('.detrimentInput').val();
-		var thisWeight = $(this).siblings('.weightInput').val();
-		var thisID = $(this).siblings('.idInput').val();
+  var clones = 0;
 
-		$.post('/detriments/create/' + thisDetriment + '/' + thisWeight + '/' + thisID,function(){
-			console.log('detriment submitted');
-		})
+  var inputNum = $('.masterField .replicate').length;
 
-		$(this).closest("form").replaceWith("<h4>Submitted</h4><hr>");
-	})
+  $(".rating").rating();
+
+  $('#progBar').progress();
+
+  if (inputNum > 0) {
+      document.getElementById("nextBtn").disabled = true;
+  }
+
+  $(document).on('click', '.submitBtn', function() {
+
+    if (inputNum === 0) {
+        location.reload(true);
+    }
+    
+    clones++
+
+    inputNum++
+
+    if (clones < 9) {   
+
+      $(this).siblings('.replicate:first').clone().appendTo($(this).parent('.masterField'));
+
+      $(".rating").rating();
+    }
+    else {
+      alert('Please limit your total detriments to 9 or less.')
+    }
+  })
+
+  $(document).on('click', '.optionBtn', function() {
+
+    inputNum--
+
+    if (inputNum === 0) {
+        document.getElementById("nextBtn").disabled = false;
+      $('#nextBtn')
+      .transition('jiggle');
+    }
+    
+   var currentRating = $(this).parentsUntil("form").nextAll(".quality").eq(0).rating('get rating');
+    console.log(currentRating);
+  
+   var thisDetriment = $(this).siblings('.detrimentInput').val();
+   var thisWeight = $(this).parentsUntil("form").nextAll(".quality").eq(0).rating('get rating');
+   var thisID = $(this).siblings('.idInput').val();
+
+   if (thisDetriment.length == 0) {
+       console.log('Enter input');
+       inputNum++
+   }
+   else {
+
+    $.post('/detriments/create/' + thisDetriment + '/' + thisWeight + '/' + thisID, function(){
+      console.log('benefit submitted');
+    })
+
+    $(this).closest("form").replaceWith("<h3><i>" + thisDetriment + "</i></h3>");
+   } 
+
+  })
 })
 
 </script>

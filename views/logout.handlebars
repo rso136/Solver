@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Logout</title>
+</head>
+<body onload = "window.history.forward()">
+
+<h3 style="color:blue"><b>You are being logged out. Please wait.</b></h3>
+
+</body>
+<script type="text/javascript">
+
+$('#navbar').hide();
+
+setTimeout(function(){
+
+	window.location.href = '/';
+
+}, 1000);
+
+</script>
+</html>
+

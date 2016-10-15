@@ -1,0 +1,17 @@
+#jumbotron {
+	height: 450px;
+}
+
+#titleBox {
+	padding-top: 150px;
+	font-size: 60px;
+}
+
+#footer {
+	height: 100px;
+}
+
+#contentBox {
+	margin-top: 50px;
+}
+

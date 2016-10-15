@@ -1,17 +1,59 @@
-<div class="row">
-	<div class="col-md-12">
-
-		<h4>Create New Account</h4>
-		<form class="create-update-form" action="/users/create" method="POST">
-			<label>Email</label>
-			<input type="text" id="emailInput" name="email">
+<div class="ui container">
+<div class="ui two column stackable padded centered grid">
+	<div class="column">
+		<form class="ui form">
+			<div class="field">
+				<h2>Please complete the following fields:</h2>
+				<h3>Your Email:</h3>
+				<div class="ui huge input">		
+					<input type="text" id="emailInput">
+				</div>
+			</div>
+			<div class="field" id="validationForm">
+				<h3>Create Password:</h3>
+				<div class="ui huge input">
+					<input type="password" id="passInput">
+				</div>
+				<h3>Retype to Confirm:</h3>
+				<div class="ui huge input">
+					<input type="password" id="validator">
+				</div>
+			</div>
 			<br>
-			<label>Password</label>
-			<input type="text" id="passInput" name="password">
-			<button type="submit" class="btn btn-success" id="submitBtn">Sign-Up</button>
+			<button type="button" id="submitNew" class="ui huge blue button">Log-In</button>	
+			<div class="field" id="misMatch">
+			
+			</div>	
 		</form>
-
-
 	</div>
-
 </div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	$('#submitNew').on('click', function() {
+
+		var password = $('#passInput').val();
+		var validation = $('#validator').val();
+		var email = $('#emailInput').val();
+
+		console.log(password);
+		console.log(validation);
+
+		if (password === validation) {
+
+			$.post('/users/create/' + email + '/' + password, function() {
+				window.location.href="/problems";
+			})
+		}
+		else {
+
+			console.log('Mismatch');
+			$('#misMatch').html('<h4><font color="red">Passwords do not match. Try again.</font></h4>');
+		}
+	})	
+});
+
+</script>

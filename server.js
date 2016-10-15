@@ -19,19 +19,6 @@ var users_controller = require('./controllers/users_controller');
 
 var app = express();
 
-var Sequelize = require('sequelize'),
-  connection;
-
-console.log(process.env.JAWSDB_URL);
-if (process.env.JAWSDB_URL) {
-  connection = new Sequelize(process.env.JAWSDB_URL);
-}else {
-  connection = new Sequelize('solver_db', 'root', 'password', {
-    host: 'localhost',
-    dialect: 'mysql',
-    port: '3306'
-  })
-}
 
 // override POST to have DELETE and PUT
 app.use(methodOverride('_method'))

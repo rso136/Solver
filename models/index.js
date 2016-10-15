@@ -4,8 +4,22 @@ var fs        = require("fs");
 var path      = require("path");
 var Sequelize = require("sequelize");
 var env       = process.env.NODE_ENV || "development";
-var config    = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
-var sequelize = new Sequelize(config.database, config.username, config.password, config);
+//var config    = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
+//var sequelize = new Sequelize(config.database, config.username, config.password, config);
+
+var sequelize;
+
+console.log(process.env.JAWSDB_URL);
+if (process.env.JAWSDB_URL) {
+  sequelize = new Sequelize(process.env.JAWSDB_URL);
+}else {
+  sequelize = new Sequelize('solver_db', 'root', 'orangegit12', {
+    host: 'localhost',
+    dialect: 'mysql',
+    port: '3306'
+  })
+}
+
 var db        = {};
 
 fs

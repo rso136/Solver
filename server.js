@@ -19,6 +19,18 @@ var users_controller = require('./controllers/users_controller');
 
 var app = express();
 
+var Sequelize = require('sequelize'),
+  connection;
+if (process.env.JAWSDB_URL) {
+  connection = new Sequelize(process.env.JAWSDB_URL);
+}else {
+  connection = new Sequelize('solver_db', 'root', 'orangegit12', {
+    host: 'localhost',
+    dialect: 'mysql',
+    port: '3306'
+  })
+}
+
 // override POST to have DELETE and PUT
 app.use(methodOverride('_method'))
 
@@ -51,6 +63,9 @@ app.use('/benefits', benefits_controller);
 app.use('/detriments', detriments_controller);
 app.use('/', application_controller);
 
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -68,17 +83,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var Sequelize = require('sequelize'),
- 	connection;
-if (process.env.JAWSDB_URL) {
-	connection = new Sequelize(process.env.JAWSDB_URL);
-}else {
-	connection = new Sequelize('solver_db', 'root', 'password', {
-		host: 'localhost',
-		dialect: 'mysql',
-		port: '3306'
-	})
-}
 
 app.set('port', process.env.PORT || 3000);
 

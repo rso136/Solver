@@ -4,11 +4,11 @@ module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
     score: {
       type: DataTypes.INTEGER,
-      defaultValue: '0'
+      defaultValue: 0
     },
     total: {
       type:DataTypes.INTEGER,
-      defaultValue: '0'
+      defaultValue: 0
     },
     grade: {
       type: DataTypes.STRING,

@@ -226,8 +226,8 @@ var myChart = new Chart(ctx, {
 	$(document).on('click', '.otherScore', function() {
 		
 		thisScore = $(this).find("span").text();
-		postScore = parseInt(thisScore) + parseInt(curScore);
-		postTotal = parseInt(thisTotal) + parseInt(curTotal);
+		var postScore = parseInt(thisScore) + parseInt(curScore);
+		var postTotal = parseInt(thisTotal) + parseInt(curTotal);
 
 		console.log(thisScore);
 
@@ -248,8 +248,8 @@ var myChart = new Chart(ctx, {
 	$(document).on('click', '#postScore', function() {
 
 		thisScore = $('#highSpan').text();
-		postScore = parseInt(thisScore) + parseInt(curScore);
-		postTotal = parseInt(thisTotal) + parseInt(curTotal);		
+		var postScore = parseInt(thisScore) + parseInt(curScore);
+		var postTotal = parseInt(thisTotal) + parseInt(curTotal);		
 
 		$.post('/problems/logscore/' + postScore, function() {
 			console.log('score sent');

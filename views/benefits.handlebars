@@ -52,6 +52,8 @@
 
 $(document).ready(function(){
 
+  //note: create hidden form to replicate. clone and show. hidden form works better than cloning visible form because even when all forms are submitted, you can still clone one form at a time instead of page refresh. 
+
   var clones = 0;
 
   var inputNum = $('.masterField .replicate').length;

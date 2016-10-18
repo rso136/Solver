@@ -1,6 +1,16 @@
 <div class="ui container">
+<div class="ui two column stackable padded centered grid">
+  <div class="column">  
+      <h3>Step 4: Detriments</h3>    
+      <div class="ui blue large progress" data-percent="90" id="progBar">
+        <div class="bar"></div>
+        <div class="label">Progress</div>
+      </div>
+    </div>
+</div>
+</div>
  <div class="inputGrid ui one column stackable padded centered grid">
-    <div class="inputBox column">
+    <div class="inputBox center aligned column">
         <h2>What are the detriments for each option?</h2>
         {{#each problems}}
         <h3>Your current problem: {{this.problem}}</h3>
@@ -8,7 +18,7 @@
       {{#each options}}  
       <h2><u>{{this.option}}:</u></h2>
       <div class="masterField">
-        <button type="button" class="submitBtn ui small red button">More <i class="plus icon"></i></button>
+        <button type="button" class="submitBtn ui small blue basic button">More <i class="plus icon"></i></button>
         <div class="hiddenForm"> 
         <form class="firstForm replicate ui form">
           <div class="field">
@@ -53,16 +63,7 @@
 
     </div>
 </div>
-<div class="ui two column stackable padded centered grid">
-  <div class="column">  
-      <h3>Step 4: Detriments</h3>    
-      <div class="ui violet big progress" data-percent="90" id="progBar">
-        <div class="bar"></div>
-        <div class="label">Progress</div>
-      </div>
-    </div>
-</div>
-</div>
+
 
   
 

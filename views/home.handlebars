@@ -1,5 +1,15 @@
 <div class="ui container">
 <div class="ui two column stackable padded centered grid">
+ 	<div class="column">
+ 	  <h3>Step 1: The Problem</h3>	
+      <div class="ui blue large progress" data-percent="10" id="progBar">
+        <div class="bar"></div>
+        <div class="label">Progress</div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="ui two column stackable padded centered grid">
 	<div class="column">
 		<form class="ui form" action="/problems/create" method="POST">
 			<div class="field">
@@ -12,16 +22,7 @@
 		</form>
 	</div>
 </div>
-<div class="ui two column stackable padded centered grid">
- 	<div class="column">
- 	  <h3>Step 1: The Problem</h3>	
-      <div class="ui violet big progress" data-percent="20" id="progBar">
-        <div class="bar"></div>
-        <div class="label">Progress</div>
-      </div>
-    </div>
-</div>
-</div>
+
 
 <script type="text/javascript">
 $(document).ready(function(){

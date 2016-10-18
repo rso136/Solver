@@ -8,8 +8,24 @@
       {{#each options}}  
       <h2><u>{{this.option}}:</u></h2>
       <div class="masterField">
-        <button type="button" class="submitBtn ui small red button">More <i class="plus icon"></i></button> 
-        <br>
+        <button type="button" class="submitBtn ui small red button">More <i class="plus icon"></i></button>
+        <div class="hiddenForm"> 
+        <form class="firstForm replicate ui form">
+          <div class="field">
+              <div style="width:400px" class="lgInput ui big icon input">
+                <input type="hidden" class="idInput" value={{this.id}}>
+                <input type="text" class="detrimentInput" name="detriment" placeholder="Input Detriment" size="50" required>
+                <i class="optionBtn inverted circular plus link icon"></i>
+              </div>
+          </div>
+
+              <h4>Rate this benefit:</h4>
+              <div class="ui quality huge star rating" data-rating="3" data-max-rating="5"></div>
+              <br>
+              <br>
+        </form>
+        </div>
+        <div class="replicateField">
         <br>
         <form class="replicate ui form">
           <div class="field">
@@ -22,9 +38,9 @@
 
               <h4>Rate this detriment:</h4>
               <div class="ui quality huge star rating" data-rating="3" data-max-rating="5"></div>
+        <br>      
         </form>
-        <br>
-        
+      </div>  
       </div>    
       {{/each}}
           <br>
@@ -56,7 +72,9 @@ $(document).ready(function(){
 
   var clones = 0;
 
-  var inputNum = $('.masterField .replicate').length;
+  var inputNum = $('.replicateField .replicate').length;
+
+  $('.firstForm').hide();
 
   $(".rating").rating();
 
@@ -68,17 +86,15 @@ $(document).ready(function(){
 
   $(document).on('click', '.submitBtn', function() {
 
-    if (inputNum === 0) {
-        location.reload(true);
-    }
-    
     clones++
 
     inputNum++
 
     if (clones < 9) {   
 
-      $(this).siblings('.replicate:first').clone().appendTo($(this).parent('.masterField'));
+      $(this).parent('.masterField').find('.replicate:first').clone().appendTo($(this).siblings('.replicateField')).show();      
+
+      //$(this).siblings('.replicate:first').clone().appendTo($(this).parent('.masterField'));
 
       $(".rating").rating();
     }

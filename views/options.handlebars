@@ -6,6 +6,15 @@
         	{{#if @last}}
          		<h2>Problem: <i>"{{this.problem}}"</i></h2>
           		<h2>What are your options?</h2>
+			<form class="replicate ui form" id="firstForm">
+        		<div class="field">
+					<div style="width:400px" class="ui big icon input">
+						<input type="hidden" class="idInput" value={{this.id}} name="id">	
+						<input class="optionInput" type="text" placeholder="Input Option" name="option" required><i class="optionBtn inverted circular plus link icon"></i>
+					</div>
+				</div>
+				<br>	
+			</form>
 			<form class="replicate ui form">
         		<div class="field">
 					<div style="width:400px" class="ui big icon input">
@@ -38,7 +47,7 @@
 <div class="ui two column stackable padded centered grid">
  	<div class="column">
  	  <h3>Step 2: Options</h3>	
-      <div class="ui violet big progress" data-percent="50" id="progBar">
+      <div class="ui violet big progress" data-percent="20" id="progBar">
         <div class="bar"></div>
         <div class="label">Progress</div>
       </div>
@@ -53,6 +62,8 @@ $(document).ready(function(){
 var clones = 0;
 var inputNum = 2;
 var inputEval = $('.masterField .replicate').length;
+
+$('#firstForm').hide();
 	
 $('#progBar').progress();
 
@@ -62,26 +73,19 @@ if (inputNum > 0) {
 
 $('.submitBtn').on('click', function() {
 
-	if (inputEval === 0) {
-    	location.reload(true);
-    }
-
-	else {
-
 	inputEval++
 	console.log(inputEval);
     clones++
     inputNum++
 
 	if (clones < 4) {
-      $('.replicate:first').clone(true).appendTo('.masterField');
+      $('.replicate:first').clone(true).appendTo('.masterField').show();
     }
     else {
       alert('Please limit your options to 4.');
     }
 
-	}
-  })
+ })
 	
 $(document).on('click', '.optionBtn', function() {
 
@@ -109,9 +113,8 @@ $(document).on('click', '.optionBtn', function() {
 			console.log('option submitted');
 		})
 
-		var outForm = $(this).closest("form"); 
+		var outForm = $(this).closest("form"); 		
 
-		
 		$(this).closest("form").replaceWith("<h3><i>" + thisOpt + "</i></h3><br>");
 		
 		}

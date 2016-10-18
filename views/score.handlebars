@@ -1,7 +1,7 @@
 <div class="ui container">
-<div class="inputGrid ui one column stackable padded centered grid">
- 	<div class="column">
- 		<div class="resultBox">
+<div class="inputGrid ui two column stackable padded centered grid">
+	<div class="column">
+		<div class="resultBox">
  			<div class="ui black massive message" id="bestBox">
  				{{#each users}}
  				<input type="hidden" id="currentScore" value={{this.score}}>
@@ -12,6 +12,27 @@
  				</div>
  				<h2 id="postScore">High Score: <span id="highSpan"></span></h2>
  			</div>
+ 		</div>
+	</div>
+	<div class="graph column">
+		<div class="graphBox ui black massive message" id="graphDisp">
+			<canvas id="myChart" height="170"></canvas>
+		</div>	
+	</div>
+</div>
+<div class="inputGrid ui one column stackable padded centered grid">
+ 	<div class="column">
+ 		<div class="resultBox">
+ 			<!--<div class="ui black massive message" id="bestBox">
+ 				{{#each users}}
+ 				<input type="hidden" id="currentScore" value={{this.score}}>
+ 				<input type="hidden" id="currentTotal" value={{this.total}}>
+ 				{{/each}}
+ 				<div id="best">
+ 				<h2>Based on Solver's calculations, the best option is as follows:</h2>
+ 				</div>
+ 				<h2 id="postScore">High Score: <span id="highSpan"></span></h2>
+ 			</div>-->
 			<div class="ui black massive message" id="otherScoreBox">
 			<h2>Please select one of your options!</h2>
 				<ul class="ui list">
@@ -35,13 +56,6 @@
 			</div>
  		</div>	
 	</div>
-</div>
-<div class="inputGrid ui four column stackable padded centered grid">	
-	<div class="column">
-		<div class="graphBox">
-			<canvas id="myChart" width="400" height="400"></canvas>
-		</div>	
-	</div>	
 </div>
 <div class="ui two column stackable padded centered grid">
   <div class="column">  
@@ -67,6 +81,8 @@ $(document).ready(function(){
 	var postTotal;
 
 $('#progBar').progress();
+
+Chart.defaults.global.maintainAspectRatio = false;
 
 var myChart = new Chart(ctx, {
     type: 'pie',
@@ -198,6 +214,12 @@ var myChart = new Chart(ctx, {
 		$('#otherScoreBox')
 		.transition('vertical flip');
 
+		$('#bestBox')
+		.transition('vertical flip');
+
+		$('#bestBox')
+		.transition('vertical flip');
+
 		$.post('/problems/evaluate/' + userGrade, function() {
 			console.log('grade sent');
 		})
@@ -233,6 +255,8 @@ var myChart = new Chart(ctx, {
 
 		console.log(thisScore);
 
+		$('.graph').hide();
+
 		$.post('/problems/logscore/' + postScore, function() {
 			console.log('score sent');
 		})
@@ -240,7 +264,7 @@ var myChart = new Chart(ctx, {
 		$.post('/problems/logtotal/' + postTotal, function() {
 			console.log('total sent');
 
-  			$('#bestBox').html('<a href="/problems"><h2>Thank you for using solver. Click to resolve another problem!</h2></a>');
+  			$('#bestBox').html('<a href="/problems"><h2>Click to resolve another problem!</h2></a>');
 		})	
 
 		calGrade();
@@ -260,7 +284,7 @@ var myChart = new Chart(ctx, {
 		$.post('/problems/logtotal/' + postTotal, function() {
 			console.log('total sent');
 
-  			$('#bestBox').html('<a href="/problems"><h2>Thank you for using solver. Click to resolve another problem!</h2></a>');
+  			$('#bestBox').html('<a href="/problems"><h2>Click to resolve another problem!</h2></a>');
 		});	
 
 		calGrade();

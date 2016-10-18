@@ -1,9 +1,19 @@
-<div class="ui one column stackable grid" id="jumbotron">
-	<div class="black center aligned column">
-		<h1 class="ui inverted header" id="titleBox">SOLVER</h1>
+<div class="ui inverted segment" id="navbarIntro">
+<div class="ui inverted secondary pointing menu">
+	<h3 class="item">
+		<a href="/">Home</a>
+	</h3>
+	<h3 class="item">
+		<a href="/users/sign-in">Login</a>
+	</h3>
+</div>	
+	<div class="ui one column stackable grid" id="jumbotron">
+		<div class="center aligned column">
+			<h1 class="ui inverted header" id="titleBox">SOLVER</h1>
 		
-		<a href="/users/new" class="huge ui inverted blue button">Get Started</a>
+			<a href="/users/new" class="huge ui inverted blue button">Get Started</a>
 
+		</div>
 	</div>
 </div>
 
@@ -30,7 +40,7 @@
 	</div>	
 </div>
 
-<div class="ui inverted segment">
+<div class="ui inverted segment" id="footerDiv">
 	<div class="ui one column stackable padded grid" id="footer">
 		<div class="six wide center aligned column">
 		
@@ -43,3 +53,11 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$('#navbar').hide();
+})
+
+</script>

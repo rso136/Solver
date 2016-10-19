@@ -8,19 +8,19 @@
  				<input type="hidden" id="currentTotal" value={{this.total}}>
  				{{/each}}
  				<div id="best">
- 				<h2>Based on Solver's calculations, the best option is as follows:</h2>
+ 				<h3>Based on Solver's calculations, the best option is as follows:</h3>
  				</div>
- 				<h2 id="postScore">High Score: <span id="highSpan"></span></h2>
+ 				<h3 id="postScore">High Score: <span id="highSpan"></span></h3>
  			</div>
  		</div>
 	</div>
 	<div class="graph column">
 		<div class="graphBox ui black massive message" id="graphDisp">
-			<canvas id="myChart" height="170"></canvas>
+			<canvas id="myChart" height="145"></canvas>
 		</div>	
 	</div>
 </div>
-<div class="inputGrid ui one column stackable padded centered grid">
+<div class="inputGrid ui two column stackable padded centered grid">
  	<div class="column">
  		<div class="resultBox">
  			<!--<div class="ui black massive message" id="bestBox">
@@ -33,15 +33,13 @@
  				</div>
  				<h2 id="postScore">High Score: <span id="highSpan"></span></h2>
  			</div>-->
-			<div class="ui black massive message" id="otherScoreBox">
-			<h2>Please select one of your options!</h2>
-				<ul class="ui list">
+			<div class="ui black big message" id="otherScoreBox">
+			<h3>Please select one of your options!</h3>
+				<ol class="ui list">
 				{{#each options}}
-				<div class="resultDiv" name="{{this.option}}">
-					<a class="otherScore" href='#'><h2><li>{{this.option}}</li></h2>
+				<div class="resultDiv ui blue message" name="{{this.option}}">
+					<a class="otherScore" href='#'><h3><li>{{this.option}} (Score: <span class="resultSpan"></span>)</li></h3></a>
 					<input type="hidden" class="optionName" value={{this.option}}>
-					<h3>Score: <span class="resultSpan"></span></h3></a>
-					<br>
 					{{#each this.Benefits}}
 					<input type="hidden" class="benefitName" value={{this.benefit}}>
 					<input type="hidden" class="benefitWeight" value={{this.weight}}> 
@@ -52,7 +50,7 @@
 					{{/each}}
 				</div>	
 				{{/each}}
-				</ul>
+				</ol>
 			</div>
  		</div>	
 	</div>
@@ -167,11 +165,11 @@ var myChart = new Chart(ctx, {
 
 		if (bestOption.length > 1) {
 			for (var i = 0; i < bestOption.length; i++) {
-				$('#best').append('<h2>' + bestOption[i] + '</h2>');
+				$('#best').append('<h3>' + bestOption[i] + '</h3>');
 			}
 		}
 		else {
-			$('#best').append('<h2><u>' + bestOption[0] + '</u></h2>');
+			$('#best').append('<h3><u>' + bestOption[0] + '</u></h3>');
 		}
 
 		console.log(bestOption[0]);
@@ -206,7 +204,7 @@ var myChart = new Chart(ctx, {
 
 		console.log(userGrade);
 
-		$('#otherScoreBox').html('<h2>Your solver rating is currently: </h2><h1 id="finalGrade">' + userGrade + '</h1>');
+		$('#otherScoreBox').html('<h3>Your solver rating is currently: </h3><h1 id="finalGrade">' + userGrade + '</h1>');
 
 		$('#otherScoreBox')
 		.transition('vertical flip');
@@ -264,7 +262,7 @@ var myChart = new Chart(ctx, {
 		$.post('/problems/logtotal/' + postTotal, function() {
 			console.log('total sent');
 
-  			$('#bestBox').html('<a href="/problems"><h2>Click to resolve another problem!</h2></a>');
+  			$('#bestBox').html('<center><a href="/problems"><h3><u>Click to resolve another problem!</u></h3></a></center>');
 		})	
 
 		calGrade();
@@ -284,7 +282,7 @@ var myChart = new Chart(ctx, {
 		$.post('/problems/logtotal/' + postTotal, function() {
 			console.log('total sent');
 
-  			$('#bestBox').html('<a href="/problems"><h2>Click to resolve another problem!</h2></a>');
+  			$('#bestBox').html('<a href="/problems"><h3><u>Click to resolve another problem!</h3></u></a>');
 		});	
 
 		calGrade();

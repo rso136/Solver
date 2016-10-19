@@ -14,7 +14,7 @@
 	<div class="masterField">
 	    {{#each problems}}
         	{{#if @last}}
-         		<h2>Problem: <i>"{{this.problem}}"</i></h2>
+         		<h3>Problem: <i>"{{this.problem}}"</i></h3>
           		<h2>What are your options?</h2>
 			<form class="replicate ui form" id="firstForm">
         		<div class="field">
@@ -44,11 +44,11 @@
 				<br>	
 			</form>
 		</div>	
-          	<button type="button" class="submitBtn ui huge blue basic button">Add More <i class="plus icon"></i></button> 
+          	<button type="button" class="submitBtn ui big blue basic button">Add More <i class="plus icon"></i></button> 
           	<br>
           	<br>
           	<form action="/benefits/benefit_input/{{this.id}}" method="GET"> 
-          	<button class="ui huge blue button" id="nextBtn">Go<i class="long arrow right icon"></i></button>
+          	<button class="ui big blue button" id="nextBtn">Go<i class="long arrow right icon"></i></button>
           	</form>
 		{{/if}}
     {{/each}}

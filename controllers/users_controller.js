@@ -18,11 +18,11 @@ router.get('/solver', function(req, res) {
 })
 
 router.get('/new', function(req,res) {
-	res.render('new');
+	res.render('new2');
 });
 
 router.get('/sign-in', function(req,res) {
-	res.render('sign_in');
+	res.render('sign_in2');
 });
 
 router.get('/sign-out', function(req,res) {

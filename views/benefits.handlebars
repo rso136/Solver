@@ -30,9 +30,9 @@
                   <i class="optionBtn inverted circular plus link icon"></i>
                 </div>
             </div>
-
+              
                 <h4>Rate this benefit:</h4>
-                <div class="ui quality huge star rating" data-rating="3" data-max-rating="5"></div>
+                <div class="ui quality huge star rating" data-rating="3" data-max-rating="5"></div>              
                 <br>
                 <br>
           </form>           
@@ -47,7 +47,6 @@
                 <i class="optionBtn inverted circular plus link icon"></i>
               </div>
           </div>
-
               <h4>Rate this benefit:</h4>
               <div class="ui quality huge star rating" data-rating="3" data-max-rating="5"></div>
         <br>      
@@ -59,7 +58,7 @@
           <br>
           {{#each problems}}
           <form class="ui form" action="/detriments/detriment_input/{{this.id}}" method="GET"> 
-            <button class="ui huge blue button" id="nextBtn">Go<i class="long arrow right icon"></i></button>
+            <button class="ui big blue button" id="nextBtn">Go<i class="long arrow right icon"></i></button>
           </form>
           {{/each}}
 
@@ -74,6 +73,9 @@ $(document).ready(function(){
   var clones = 0;
 
   var inputNum = $('.replicateField .replicate').length;
+
+  var rangeInput;
+
 
   $('.firstForm').hide();
 
@@ -94,8 +96,8 @@ $(document).ready(function(){
     if (clones < 9) {   
 
       $(this).parent('.masterField').find('.replicate:first').clone().appendTo($(this).siblings('.replicateField')).show();
-
-      $(".rating").rating();
+      
+      $(".rating").rating()
     }
     else {
       alert('Please limit your total benefits to 9 or less.')
@@ -106,17 +108,18 @@ $(document).ready(function(){
 
     inputNum--
 
+    var currentRating = $(this).parentsUntil("form").nextAll(".quality").eq(0).rating('get rating');
+    console.log(currentRating);
+
     if (inputNum === 0) {
         document.getElementById("nextBtn").disabled = false;
         $('#nextBtn')
         .transition('jiggle');
     }
-    
-    var currentRating = $(this).parentsUntil("form").nextAll(".quality").eq(0).rating('get rating');
-    console.log(currentRating);
-  
+      
    var thisBenefit = $(this).siblings('.benefitInput').val();
    var thisWeight = $(this).parentsUntil("form").nextAll(".quality").eq(0).rating('get rating');
+   console.log(thisWeight);
    var thisID = $(this).siblings('.idInput').val();
 
    if (thisBenefit.length == 0) {

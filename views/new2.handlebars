@@ -1,0 +1,69 @@
+  <style type="text/css">
+    .column {
+      max-width: 450px;
+    }
+  </style>
+
+<div class="ui middle aligned center aligned grid">
+  <div class="logIn column">
+    <h2 class="ui blue image header">
+      <div class="content">
+        Create New Account
+      </div>
+    </h2>
+    <form class="ui large form">
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon big input">
+            <i class="user icon"></i>
+            <input type="text" id="emailInput" placeholder="Enter your e-mail address">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon big input">
+            <i class="lock icon"></i>
+            <input type="password" id="passInput" placeholder="Create a password">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon big input">
+            <i class="lock icon"></i>
+            <input type="password" id="validator" placeholder="Retype your password">
+          </div>
+        </div>
+        <button type="button" id="submitNew" class="ui fluid big blue button">Create New Account</button>
+      </div>
+    </form>
+    <div class="field" id="misMatch">
+    </div>  
+  </div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+  $('#submitNew').on('click', function() {
+
+    var password = $('#passInput').val();
+    var validation = $('#validator').val();
+    var email = $('#emailInput').val();
+
+    console.log(password);
+    console.log(validation);
+
+    if (password === validation) {
+
+      $.post('/users/create/' + email + '/' + password, function() {
+        window.location.href="/problems";
+      })
+    }
+    else {
+
+      console.log('Mismatch');
+      $('#misMatch').html('<h4><font color="red">Passwords do not match. Try again.</font></h4>');
+    }
+  })  
+});
+
+</script>

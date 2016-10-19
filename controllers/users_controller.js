@@ -112,6 +112,11 @@ router.get('/reset/:random', function(req, res) {
 	})
 });
 
+router.get('/confirm/:random', function(req, res) {
+
+	res.render('emailconfirm');
+})
+
 router.post('/resetpass/:random', function(req, res) {
 	models.User.findAll({
 		where: {random: req.params.random}
@@ -185,14 +190,51 @@ router.post('/create', function(req,res) {
 							req.session.user_email = user.email;
 
 							
-							res.redirect('/problems');
+							//res.redirect('/problems');
 							//res.send('posted to database');
+							console.log('request processed');
 						});
 					});
 			});
 
 		};
 	});
+
+var mailgun = new Mailgun({apiKey: api_key, domain: domain});
+	
+	var randnum = Math.random().toString(36).substring(7);
+
+    var data = {
+    //Specify email data
+      from: from_who,
+    //The email to contact
+      to: req.body.email,
+    //Subject and text data  
+      subject: 'Solver Email Confirmation',
+      html: 'Please copy and paste the following link into your url bar in order to confirm your email: https://pure-sea-11701.herokuapp.com/users/confirm/' + randnum 
+    }
+
+    //Invokes the method to send emails given the above data with the helper library
+    mailgun.messages().send(data, function (err, body) {
+        //If there is an error, render the error page
+        if (err) {
+            res.json({ error : err});
+            console.log("got an error: ", err);
+            console.log(body);
+        }
+        //Else we can greet    and leave
+        else {
+            //Here "submitted.jade" is the view file for this landing page 
+            //We pass the variable "email" from the url parameter in an object rendered by Jade
+            //res.render('submitted', { email : req.params.mail });
+            //console.log(body);
+            console.log('email sent to ' + req.body.email);
+            res.render('checkinbox');
+           // res.json(body);
+            //console.log(body);
+        }
+    });
+
 });
 
 module.exports = router;

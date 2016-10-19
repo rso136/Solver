@@ -27,7 +27,7 @@ router.get('/sign-in', function(req,res) {
 
 router.get('/sign-out', function(req,res) {
   req.session.destroy(function(err) {
-     res.render('logout')
+     res.render('logout');
   })
 });
 
@@ -37,6 +37,10 @@ router.get('/requestpass', function(req, res) {
 
 router.get('/confirmed', function(req, res) {
 	res.render('pass_confirmed');
+})
+
+router.get('/about', function(req, res) {
+	res.render('about');
 })
 
 router.post('/forget', function(req, res) {

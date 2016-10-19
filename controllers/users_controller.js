@@ -43,6 +43,10 @@ router.get('/userexists', function(req, res) {
 	res.render('userexists');
 })
 
+router.get('/invalid', function(req, res) {
+	res.render('invalid');
+})
+
 router.get('/about', function(req, res) {
 	res.render('about');
 })
@@ -146,7 +150,9 @@ router.post('/login', function(req, res) {
   }).then(function(user) {
 
 		if (user == null){
-		  res.redirect('/users/sign-in')
+		  
+			res.redirect('/users/invalid');
+		  //res.redirect('/users/sign-in')
 		}
 
     bcrypt.compare(req.body.password, user.password_hash, function(err, result) {
@@ -158,7 +164,9 @@ router.post('/login', function(req, res) {
 
           res.redirect('/problems');
         }else{
-		      res.redirect('/users/sign-in')
+		      
+        	res.redirect('/users/invalid');
+		      //res.redirect('/users/sign-in')
 		    }
     });
   });

@@ -45,7 +45,9 @@ $(document).ready(function() {
 		if (password === validation) {
 
 			$.post('/users/create/' + email + '/' + password, function() {
-				window.location.href="/problems";
+				
+				console.log('logging in');
+				//window.location.href="/problems";
 			})
 		}
 		else {

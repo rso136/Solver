@@ -39,6 +39,10 @@ router.get('/confirmed', function(req, res) {
 	res.render('pass_confirmed');
 })
 
+router.get('/userexists', function(req, res) {
+	res.render('userexists');
+})
+
 router.get('/about', function(req, res) {
 	res.render('about');
 })
@@ -123,7 +127,7 @@ router.post('/resetpass/:random', function(req, res) {
 					where: { random: req.params.random }	
 				})
 				.then(function() {
-					res.redirect('/users/confirmed')
+					res.redirect('/users/confirmed');
 				})
 			})
 		})
@@ -155,20 +159,24 @@ router.post('/login', function(req, res) {
   });
 });
 
-router.post('/create/:email/:password', function(req,res) {
+router.post('/create', function(req,res) {
 	models.User.findAll({
-    where: {email: req.params.email}
+    where: {email: req.body.email}
   }).then(function(users) {
 
 		if (users.length > 0){
 			console.log(users)
-			res.send('we already have an email or username for this account')
-		}else{
+			
+			
+			res.redirect('/users/userexists')
+			//res.send('we already have an email or username for this account');
+		}
+		else{
 
 			bcrypt.genSalt(10, function(err, salt) {
-					bcrypt.hash(req.params.password, salt, function(err, hash) {
+					bcrypt.hash(req.body.password, salt, function(err, hash) {
 						models.User.create({
-							email: req.params.email,
+							email: req.body.email,
 							password_hash: hash
 						}).then(function(user){
 
@@ -176,7 +184,9 @@ router.post('/create/:email/:password', function(req,res) {
 							req.session.user_id = user.id;
 							req.session.user_email = user.email;
 
-							res.send('posted to database');
+							
+							res.redirect('/problems');
+							//res.send('posted to database');
 						});
 					});
 			});

@@ -202,6 +202,10 @@ var myChart = new Chart(ctx, {
 			userGrade = 'F';
 		}
 
+		if (isNaN(gradeNum) === true) {
+			userGrade = 'E';
+		}
+
 		console.log(userGrade);
 
 		$('#otherScoreBox').html('<center><h3>Your solver rating is currently: </h3><h1 id="finalGrade">' + userGrade + '</h1></center>');

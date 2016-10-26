@@ -83,7 +83,8 @@ router.post('/forget', function(req, res) {
     mailgun.messages().send(data, function (err, body) {
         //If there is an error, render the error page
         if (err) {
-            res.json({ error : err});
+            //res.json({ error : err});
+            res.render('error');
             console.log("got an error: ", err);
             console.log(body);
         }
@@ -226,7 +227,8 @@ var mailgun = new Mailgun({apiKey: api_key, domain: domain});
     mailgun.messages().send(data, function (err, body) {
         //If there is an error, render the error page
         if (err) {
-            res.json({ error : err});
+            //res.json({ error : err});
+            res.render('error')
             console.log("got an error: ", err);
             console.log(body);
         }

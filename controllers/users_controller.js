@@ -76,7 +76,7 @@ router.post('/forget', function(req, res) {
       to: req.body.email,
     //Subject and text data  
       subject: 'Solver Password Reset',
-      html: 'Here is your password reset link: https://pure-sea-11701.herokuapp.com/users/reset/' + randnum 
+      html: 'Here is your password reset link: https://rcbsolver.herokuapp.com/users/reset/' + randnum 
     }
 
     //Invokes the method to send emails given the above data with the helper library
@@ -182,7 +182,7 @@ router.post('/create', function(req,res) {
 			console.log(users)
 			
 			
-			res.redirect('/users/userexists')
+			res.redirect('/users/userexists');
 			//res.send('we already have an email or username for this account');
 		}
 		else{
@@ -220,7 +220,7 @@ var mailgun = new Mailgun({apiKey: api_key, domain: domain});
       to: req.body.email,
     //Subject and text data  
       subject: 'Solver Email Confirmation',
-      html: 'Please copy and paste the following link into your url bar in order to confirm your email: https://pure-sea-11701.herokuapp.com/users/confirm/' + randnum 
+      html: 'Please copy and paste the following link into your url bar in order to confirm your email: https://rcbsolver.herokuapp.com/users/confirm/' + randnum 
     }
 
     //Invokes the method to send emails given the above data with the helper library

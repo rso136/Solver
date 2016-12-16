@@ -2,7 +2,7 @@
 
 Description: Solver is a node application intended to demonstrate Full Stack capabilities.
 
-The primary technologies utilized in this application is as follows:
+The primary technologies utilized in this application are as follows:
 
 - Node.js
 - Express.js

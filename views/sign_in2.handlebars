@@ -36,9 +36,14 @@
       <h4>Forgot Password: <a href="/users/requestpass">Reset</a></h4>
     </div>
     <div class="ui message">
-      <h4><u>Guest Login</u></h4>
+      <form action="/users/login" method="POST" id="guestForm">
+        <input type="hidden" name="email" value="guest@richardsoh.com">
+        <input type="hidden" name="password" value="guest">
+        <a href="#" onclick="document.getElementById('guestForm').submit()"><h4>Login with guest account</h4></a>
+      </form>
+      <!-- <h4><u>Guest Login</u></h4>
       <p><b>Email: guest@richardsoh.com</b></p>
-      <p><b>Password: guest</b></p>
+      <p><b>Password: guest</b></p> -->
     </div>
   </div>
 </div>
